@@ -1,10 +1,3 @@
-//
-//  UCT.h
-//  Strategy
-//
-//  Created by ”‡–¿Ω° on 16/5/11.
-//  Copyright ? 2016ƒÍ Yongfeng Zhang. All rights reserved.
-//
 #ifndef UCT_h
 #define UCT_h
 
@@ -12,87 +5,81 @@
 #include <ctime>
 #include <cstdlib>
 #include <cmath>
-#include "chessboard.h"
+
+#include "GameBoard.h"
 #include "Timer.hpp"
 
-#define PLAYER 1
-#define COMPUTER 2
-#define TIME_LIMIT_MICROSECOND 2.5e6
-#define PLAYER_WIN_PROFIT -1
-#define COMPUTER_WIN_PROFIT 1
-#define TIE_PROFIT 0
+#define PLAYER_ME 1
+#define PLAYER_OPPONENT 2
+
+#define PROFIT_I_WIN -1
+#define PROFIT_OPPONENT_WIN 1
+#define PROFIT_TIE 0
 #define UNTERMINAL_STATE 2
+
 #define COEFFICIENT 0.9
+
 #define eps 1e-8
-#define SQRT_MAGIC_F 0x5f3759df
-#define maxMemoryPool 20000000
-
-class Node;
-
-class UCT;
+#define MAX_MEMORY_POOL_SIZE 20000000
+#define TIME_LIMIT_MICROSECOND 2.5e5
 
 class Node
 {
-    static int M, N;
-    static int _noX, _noY;
-    int _chessman;
-    int _x, _y;
-    int visNum;
-    double profit;
-    Node *father;
-    Node **children;
-    int expNum;
-    int *expNode;
-    int _isTerminal;
-    friend class UCT;
+	static int M, N;
+	static int _noX, _noY;
+	int _player;
+	int _x, _y;
+	int visNum;
+	double profit;
+	Node *father;
+	Node **children;
+	int expNum;
+	int *expNode;
+	int _isTerminal;
+	friend class UCT;
 
 public:
-    Node(int x = -1, int y = -1, int chessman = COMPUTER, Node *_father = NULL);
-    ~Node()
-    {
-        //printf("Node was freed\n");
-    }
-    int x(){return _x;}
-    int y(){return _y;}
-    bool isTerminal();
-    
-    void set(int x = -1, int y = -1, int chessman = COMPUTER, Node *_father = NULL);
-    
-    Node* newNode(int x = -1, int y = -1, int chessman = COMPUTER, Node *_father = NULL);
-    
-    Node *expand();
-    
-    Node *bestChild();
-    
-    void backUp(double delta);
+	Node(int x = -1, int y = -1, int player = PLAYER_OPPONENT, Node *_father = nullptr);
+	~Node() {}
+	int x() { return _x; }
+	int y() { return _y; }
+	bool isTerminal();
+
+	void set(int x = -1, int y = -1, int player = PLAYER_OPPONENT, Node *_father = nullptr);
+
+	Node* newNode(int x = -1, int y = -1, int player = PLAYER_OPPONENT, Node *_father = nullptr);
+
+	Node *expand();
+
+	Node *bestChild();
+
+	void backPropagation(double delta);
 };
 
 
 class UCT
 {
-    Node *root;
-    int M, N;
-    int _noX, _noY;
-    int startTime;
+	Node *root;
+	int M, N;
+	int _noX, _noY;
+
 	Timer *timer;
-    
-    void randomPlace(chessboard &computerBoard, chessboard &playerBoard, int *top, int &chessman, int &x, int &y, int &rest);
-    Node *treePolicy(Node *nowNode);
-    
-    int calcProfit(chessboard &computerBoard, chessboard &playerBoard, int *top, int &rest, int chessman, int &x, int &y);
-    double defaultPolicy(Node *nowNode);
-    void backUp(Node *nowNode, double delta)
-    {
-        nowNode->backUp(delta);
-    }
-    
+
+	double defaultPolicy(Node *nowNode);
+	Node *treePolicy(Node *nowNode);
+
+	static int calculateProfit(const GameBoard &opponentBoard, const GameBoard &myBoard, const int rest, const int player);
+	void backPropagation(Node *nowNode, double delta) {
+		nowNode->backPropagation(delta);
+	}
+
 public:
-    UCT(int _M, int _N, int noX, int noY):M(_M), N(_N), _noX(noX), _noY(noY), startTime(clock())
-    {
+	UCT(int _M, int _N, int noX, int noY) :M(_M), N(_N), _noX(noX), _noY(noY) {
 		timer = new Timer();
-    }
-    
-    Node *UCTSearch(int **boardStart, int *topStart);
-    ~UCT() {delete root;}
+	}
+
+	std::pair<int, int> UCTSearch(int const* const* boardStart, const int *topStart);
+
+	~UCT() { delete root; }
 };
-#endif /* UCT_h */
+#endif /* UCT_h */ 

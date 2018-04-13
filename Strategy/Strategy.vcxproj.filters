@@ -35,9 +35,6 @@
     <ClInclude Include="Strategy.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="chessboard.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="fmath.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -45,6 +42,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Timer.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BitSet.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GameBoard.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
