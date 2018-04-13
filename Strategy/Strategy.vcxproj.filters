@@ -21,6 +21,9 @@
     <ClCompile Include="Strategy.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="UCT.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Judge.h">
@@ -30,6 +33,18 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Strategy.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="chessboard.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="fmath.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="UCT.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

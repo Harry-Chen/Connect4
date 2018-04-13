@@ -90,11 +90,16 @@
   <ItemGroup>
     <ClCompile Include="Judge.cpp" />
     <ClCompile Include="Strategy.cpp" />
+    <ClCompile Include="UCT.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="chessboard.h" />
+    <ClInclude Include="fmath.hpp" />
     <ClInclude Include="Judge.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Strategy.h" />
+    <ClInclude Include="Timer.hpp" />
+    <ClInclude Include="UCT.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
