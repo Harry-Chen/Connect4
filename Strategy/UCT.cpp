@@ -4,6 +4,7 @@
 #include "TreeNode.h"
 #include "Timer.hpp"
 #include "GameBoard.hpp"
+#include "Strategy.h"
 
 GameBoard UCT::nowOpponentBoard, UCT::nowMyBoard;
 int *UCT::nowTop = nullptr;
@@ -121,16 +122,11 @@ std::pair<int, int> UCT::UCTSearch(int const* const* boardStart, const int *topS
 	auto originalMyBoard = GameBoard{ M, N, myBoard };
 	auto originalOpponentBoard = GameBoard{ M, N, opponentBoard };
 
-	for (int i = 0; i < M; i++) {
-		delete[] myBoard[i];
-		delete[] opponentBoard[i];
-	}
-	delete[] myBoard;
-	delete[] opponentBoard;
+	clearArray(M, N, myBoard);
+	clearArray(M, N, opponentBoard);
 
 	nowTop = new int[N];
 	memcpy(nowTop, topStart, N * sizeof(int));
-
 
 	root = new TreeNode();
 	TreeNode::usedMemory = 0;

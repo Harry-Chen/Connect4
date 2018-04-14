@@ -17,9 +17,5 @@ extern "C" __declspec(dllexport) void clearPoint(Point* p);
 
 void clearArray(int M, int N, int** board);
 
-/*
-	添加你自己的辅助函数
-*/
-
 
 #endif
