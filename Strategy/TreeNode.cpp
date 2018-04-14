@@ -4,7 +4,7 @@
 
 #include "fmath.hpp"
 
-//TreeNode** TreeNode::pool = new TreeNode*[MAX_MEMORY_POOL_SIZE]();
+TreeNode** TreeNode::pool = new TreeNode*[MAX_MEMORY_POOL_SIZE]();
 size_t TreeNode::usedMemory = 0;
 
 TreeNode::TreeNode(int x, int y, int player, TreeNode *_father) {
@@ -55,15 +55,15 @@ bool TreeNode::isTerminal()
 
 
 TreeNode* TreeNode::newNode(int x, int y, int player, TreeNode *_father) {
-	//if (usedMemory >= MAX_MEMORY_POOL_SIZE) {
+	if (usedMemory >= MAX_MEMORY_POOL_SIZE) {
 		return new TreeNode(x, y, player, _father);
-	//}
-	//else if (pool[usedMemory] == nullptr) {
-	//	pool[usedMemory] = new TreeNode(x, y, player, _father);
-	//	return pool[usedMemory++];
-	//}
-	//pool[usedMemory]->set(x, y, player, _father);
-	//return pool[usedMemory++];
+	}
+	else if (pool[usedMemory] == nullptr) {
+		pool[usedMemory] = new TreeNode(x, y, player, _father);
+		return pool[usedMemory++];
+	}
+	pool[usedMemory]->set(x, y, player, _father);
+	return pool[usedMemory++];
 }
 
 TreeNode* TreeNode::expand() {

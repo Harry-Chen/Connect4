@@ -11,7 +11,7 @@ int *UCT::nowTop = nullptr;
 int UCT::M = 0, UCT::N = 0, UCT::noX = 0, UCT::noY = 0;
 
 UCT::~UCT() {
-	root->freeMemory();
+	//root->freeMemory();
 	delete root;
 	delete timer;
 }

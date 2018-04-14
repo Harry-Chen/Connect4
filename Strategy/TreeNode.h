@@ -15,7 +15,7 @@ class TreeNode
 	int expandableNumber;
 	int *expandableNodes;
 	int _isTerminal;
-	//static TreeNode **pool;
+	static TreeNode **pool;
 
 public:
 	TreeNode(int x, int y, int player, TreeNode *_father);
