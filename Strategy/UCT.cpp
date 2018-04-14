@@ -11,7 +11,9 @@ int *UCT::nowTop = nullptr;
 int UCT::M = 0, UCT::N = 0, UCT::noX = 0, UCT::noY = 0;
 
 UCT::~UCT() {
+	root->freeMemory();
 	delete root;
+	delete timer;
 }
 
 void UCT::backPropagation(TreeNode *nowNode, double delta) {
@@ -99,8 +101,7 @@ std::pair<int, int> UCT::UCTSearch(int const* const* boardStart, const int *topS
 	int **myBoard = new int*[M];
 	int **opponentBoard = new int*[M];
 
-	for (int i = 0; i < M; i++)
-	{
+	for (int i = 0; i < M; i++) {
 		myBoard[i] = new int[N];
 		opponentBoard[i] = new int[N];
 		memcpy(myBoard[i], boardStart[i], N * sizeof(int));
@@ -108,8 +109,7 @@ std::pair<int, int> UCT::UCTSearch(int const* const* boardStart, const int *topS
 	}
 
 	for (int i = 0; i < M; i++) {
-		for (int j = 0; j < N; j++)
-		{
+		for (int j = 0; j < N; j++) {
 			if (myBoard[i][j] == 2) {
 				myBoard[i][j] = 0;
 			}
@@ -122,11 +122,7 @@ std::pair<int, int> UCT::UCTSearch(int const* const* boardStart, const int *topS
 	auto originalMyBoard = GameBoard{ M, N, myBoard };
 	auto originalOpponentBoard = GameBoard{ M, N, opponentBoard };
 
-	clearArray(M, N, myBoard);
-	clearArray(M, N, opponentBoard);
-
 	nowTop = new int[N];
-	memcpy(nowTop, topStart, N * sizeof(int));
 
 	root = new TreeNode();
 	TreeNode::usedMemory = 0;
@@ -134,21 +130,28 @@ std::pair<int, int> UCT::UCTSearch(int const* const* boardStart, const int *topS
 
 	srand(time(nullptr));
 
-	while (timer->getElapsedMicroseconds() < TIME_LIMIT_MICROSECOND)
-	{
+	while (timer->getElapsedMicroseconds() < TIME_LIMIT_MICROSECOND) {
 		times++;
 		nowOpponentBoard = originalOpponentBoard;
 		nowMyBoard = originalMyBoard;
 		memcpy(nowTop, topStart, N * sizeof(int));
-		TreeNode *nowNode = treePolicy(root);
-		double delta = defaultPolicy(nowNode);
+		auto nowNode = treePolicy(root);
+		auto delta = defaultPolicy(nowNode);
 		backPropagation(nowNode, delta);
 	}
 
 	auto best = root->bestChild();
 	auto result = std::pair<int, int>{ best->x(), best->y() };
+
+	clearArray(M, N, myBoard);
+	myBoard = nullptr;
+	clearArray(M, N, opponentBoard);
+	opponentBoard = nullptr;
 	delete[] nowTop;
+	nowTop = nullptr;
+
 	printf("Searched %d times, taking %lf ns\n", times, timer->getElapsedMicroseconds());
 	return result;
+
 
 }

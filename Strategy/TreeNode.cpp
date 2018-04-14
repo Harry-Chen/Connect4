@@ -4,8 +4,8 @@
 
 #include "fmath.hpp"
 
-TreeNode** TreeNode::pool = new TreeNode*[MAX_MEMORY_POOL_SIZE]();
-int TreeNode::usedMemory = 0;
+//TreeNode** TreeNode::pool = new TreeNode*[MAX_MEMORY_POOL_SIZE]();
+size_t TreeNode::usedMemory = 0;
 
 TreeNode::TreeNode(int x, int y, int player, TreeNode *_father) {
 	children = new TreeNode*[UCT::N];
@@ -32,21 +32,19 @@ void TreeNode::set(int x, int y, int player, TreeNode *_father) {
 
 bool TreeNode::isTerminal()
 {
-	if (_isTerminal != -1)
+	if (_isTerminal != -1) {
 		return _isTerminal;
-	if (_x == -1 && _y == -1)
-	{
+	}
+
+	if (_x == -1 && _y == -1) {
 		_isTerminal = 0;
 		return _isTerminal;
 	}
-	//if (_player == PLAYER_ME && opponentBoard.win(_x, _y) != opponentBoard.oldWin(_x, _y))
-	//    printf("Wrong newWin!\n");
 
 	if ((_player == PLAYER_ME && UCT::nowOpponentBoard.win()) ||
 		(_player == PLAYER_OPPONENT && UCT::nowMyBoard.win()) ||
 		expandableNumber == 0
-		)
-	{
+		) {
 		_isTerminal = 1;
 		return _isTerminal;
 	}
@@ -57,15 +55,15 @@ bool TreeNode::isTerminal()
 
 
 TreeNode* TreeNode::newNode(int x, int y, int player, TreeNode *_father) {
-	if (usedMemory >= MAX_MEMORY_POOL_SIZE) {
+	//if (usedMemory >= MAX_MEMORY_POOL_SIZE) {
 		return new TreeNode(x, y, player, _father);
-	}
-	else if (pool[usedMemory] == nullptr) {
-		pool[usedMemory] = new TreeNode(x, y, player, _father);
-		return pool[usedMemory++];
-	}
-	pool[usedMemory]->set(x, y, player, _father);
-	return pool[usedMemory++];
+	//}
+	//else if (pool[usedMemory] == nullptr) {
+	//	pool[usedMemory] = new TreeNode(x, y, player, _father);
+	//	return pool[usedMemory++];
+	//}
+	//pool[usedMemory]->set(x, y, player, _father);
+	//return pool[usedMemory++];
 }
 
 TreeNode* TreeNode::expand() {
@@ -135,4 +133,16 @@ void TreeNode::backPropagation(double delta)
 		nowNode->profit += delta;
 		nowNode = nowNode->father;
 	}
+}
+
+void TreeNode::freeMemory() {
+	delete[] expandableNodes;
+	for (int i = 0; i < UCT::N; ++i) {
+		if (children[i] != nullptr) {
+			children[i]->freeMemory();
+			delete children[i];
+			children[i] = nullptr;
+		}
+	}
+	delete[] children;
 }

@@ -15,7 +15,7 @@ class TreeNode
 	int expandableNumber;
 	int *expandableNodes;
 	int _isTerminal;
-	static TreeNode **pool;
+	//static TreeNode **pool;
 
 public:
 	TreeNode(int x = -1, int y = -1, int player = PLAYER_OPPONENT, TreeNode *_father = nullptr);
@@ -34,6 +34,8 @@ public:
 
 	void backPropagation(double delta);
 
-	static int usedMemory;
+	static size_t usedMemory;
+
+	void freeMemory();
 };
 
