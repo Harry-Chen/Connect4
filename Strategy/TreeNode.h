@@ -18,19 +18,19 @@ class TreeNode
 	//static TreeNode **pool;
 
 public:
-	TreeNode(int x = -1, int y = -1, int player = PLAYER_OPPONENT, TreeNode *_father = nullptr);
+	TreeNode(int x, int y, int player, TreeNode *_father);
 	~TreeNode() {}
 	int x() { return _x; }
 	int y() { return _y; }
 	bool isTerminal();
 
-	void set(int x = -1, int y = -1, int player = PLAYER_OPPONENT, TreeNode *_father = nullptr);
+	void set(int x, int y, int player, TreeNode *_father);
 
-	TreeNode* newNode(int x = -1, int y = -1, int player = PLAYER_OPPONENT, TreeNode *_father = nullptr);
+	TreeNode* newNode(int x, int y, int player, TreeNode *_father);
 
 	TreeNode *expand();
 
-	TreeNode *bestChild();
+	TreeNode *bestChild(bool placeNewChess = true);
 
 	void backPropagation(double delta);
 

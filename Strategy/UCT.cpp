@@ -123,8 +123,9 @@ std::pair<int, int> UCT::UCTSearch(int const* const* boardStart, const int *topS
 	auto originalOpponentBoard = GameBoard{ M, N, opponentBoard };
 
 	nowTop = new int[N];
+	memcpy(nowTop, topStart, N * sizeof(int));
 
-	root = new TreeNode();
+	root = new TreeNode(-1, -1, PLAYER_OPPONENT, nullptr);
 	TreeNode::usedMemory = 0;
 	int times = 0;
 
@@ -140,7 +141,7 @@ std::pair<int, int> UCT::UCTSearch(int const* const* boardStart, const int *topS
 		backPropagation(nowNode, delta);
 	}
 
-	auto best = root->bestChild();
+	auto best = root->bestChild(false);
 	auto result = std::pair<int, int>{ best->x(), best->y() };
 
 	clearArray(M, N, myBoard);

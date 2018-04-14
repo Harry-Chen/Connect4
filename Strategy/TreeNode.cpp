@@ -91,7 +91,7 @@ TreeNode* TreeNode::expand() {
 	return children[newY];
 }
 
-TreeNode* TreeNode::bestChild()
+TreeNode* TreeNode::bestChild(bool placeNewChess)
 {
 	TreeNode *bestNode;
 	double maxProfit = -RAND_MAX;
@@ -110,15 +110,17 @@ TreeNode* TreeNode::bestChild()
 			bestY = i;
 		}
 	}
-	if (_player == PLAYER_OPPONENT) {
-		UCT::nowOpponentBoard.place(--UCT::nowTop[bestY], bestY);
-	}
-	else {
-		UCT::nowMyBoard.place(--UCT::nowTop[bestY], bestY);
-	}
+	if (placeNewChess) {
+		if (_player == PLAYER_OPPONENT) {
+			UCT::nowOpponentBoard.place(--UCT::nowTop[bestY], bestY);
+		}
+		else {
+			UCT::nowMyBoard.place(--UCT::nowTop[bestY], bestY);
+		}
 
-	if (UCT::nowTop[bestY] - 1 == UCT::noX && bestY == UCT::noY) {
-		UCT::nowTop[bestY] --;
+		if (UCT::nowTop[bestY] - 1 == UCT::noX && bestY == UCT::noY) {
+			UCT::nowTop[bestY] --;
+		}
 	}
 
 	return bestNode;
