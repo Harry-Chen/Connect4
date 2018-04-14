@@ -92,7 +92,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Judge.cpp" />
     <ClCompile Include="Strategy.cpp" />
     <ClCompile Include="TreeNode.cpp" />
     <ClCompile Include="UCT.cpp" />
@@ -102,7 +101,6 @@
     <ClInclude Include="Constants.h" />
     <ClInclude Include="GameBoard.hpp" />
     <ClInclude Include="fmath.hpp" />
-    <ClInclude Include="Judge.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Strategy.h" />
     <ClInclude Include="Timer.hpp" />

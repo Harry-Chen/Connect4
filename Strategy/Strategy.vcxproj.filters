@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Judge.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Strategy.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -29,9 +26,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Judge.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Point.h">
       <Filter>头文件</Filter>
     </ClInclude>

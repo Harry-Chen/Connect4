@@ -1,7 +1,6 @@
 #include <iostream>
 
 #include "Point.h"
-#include "Judge.h"
 #include "Strategy.h"
 #include "UCT.h"
 
