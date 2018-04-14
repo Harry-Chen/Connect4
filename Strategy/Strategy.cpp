@@ -4,7 +4,6 @@
 #include "Judge.h"
 #include "Strategy.h"
 #include "UCT.h"
-#include "GameBoard.h"
 
 using namespace std;
 

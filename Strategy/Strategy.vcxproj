@@ -94,16 +94,19 @@
   <ItemGroup>
     <ClCompile Include="Judge.cpp" />
     <ClCompile Include="Strategy.cpp" />
+    <ClCompile Include="TreeNode.cpp" />
     <ClCompile Include="UCT.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BitSet.h" />
-    <ClInclude Include="GameBoard.h" />
+    <ClInclude Include="Constants.h" />
+    <ClInclude Include="GameBoard.hpp" />
     <ClInclude Include="fmath.hpp" />
     <ClInclude Include="Judge.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Strategy.h" />
     <ClInclude Include="Timer.hpp" />
+    <ClInclude Include="TreeNode.h" />
     <ClInclude Include="UCT.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

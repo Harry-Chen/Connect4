@@ -1,0 +1,14 @@
+#pragma once
+#define PLAYER_ME 1
+#define PLAYER_OPPONENT 2
+
+#define PROFIT_I_WIN -1
+#define PROFIT_OPPONENT_WIN 1
+#define PROFIT_TIE 0
+#define UNTERMINAL_STATE 2
+
+#define COEFFICIENT 0.9
+
+#define eps 1e-8
+#define MAX_MEMORY_POOL_SIZE 20000000
+#define TIME_LIMIT_MICROSECOND 2.8e6

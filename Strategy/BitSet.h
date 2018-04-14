@@ -1,10 +1,14 @@
 #pragma once
 #include <cstdint>
-#include <intrin.h>
 
-class BitSet
-{
+class BitSet {
+	union {
+		uint64_t a[3];
+		uint16_t b[12];
+	};
+
 public:
+
 	BitSet(uint64_t a0, uint64_t a64, uint64_t a128) {
 		a[0] = a0;
 		a[1] = a64;
@@ -38,11 +42,11 @@ public:
 	}
 
 	operator bool() const {
+		// return pop() > 0;
 		return (a[0] | a[1] | a[2]) != 0;
 	}
 
 	void set(int x) {
-		if ((x >> 6) >= 3) abort();
 		a[x >> 6] |= 1ULL << (x & 63);
 	}
 
@@ -61,8 +65,4 @@ public:
 		return popcount64(a[0]) + popcount64(a[1]) + popcount64(a[2]);
 	}
 
-	union {
-		uint64_t a[3];
-		uint16_t b[12];
-	};
 };

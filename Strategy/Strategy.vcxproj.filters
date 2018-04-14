@@ -24,6 +24,9 @@
     <ClCompile Include="UCT.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="TreeNode.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Judge.h">
@@ -47,7 +50,13 @@
     <ClInclude Include="BitSet.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="GameBoard.h">
+    <ClInclude Include="TreeNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GameBoard.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
