@@ -41,9 +41,6 @@
     <ClInclude Include="Timer.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="BitSet.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="TreeNode.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -51,6 +48,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="GameBoard.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BitSet.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

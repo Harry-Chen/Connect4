@@ -1,5 +1,5 @@
-#ifndef TIMER_HH
-#define TIMER_HH
+#ifndef TIMER_HPP
+#define TIMER_HPP
 
 #ifdef WIN32
 #include <windows.h>

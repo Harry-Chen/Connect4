@@ -1,14 +1,13 @@
-#ifndef CHESSBOARD_H
-#define CHESSBOARD_H
+#ifndef GAMEBOARD_HPP
+#define GAMEBOARD_HPP
 
 #include <cstdio>
 
-#include "BitSet.h"
+#include "BitSet.hpp"
 
 
 class GameBoard
 {
-	//BitSet board{ 0, 0, 0 };
 	BitSet::bits board = { 0, 0, 0 };
 	int M, N;
 
@@ -21,7 +20,6 @@ public:
 			for (int j = 0; j < N; j++) {
 				if (source[i][j] != 0) {
 					BitSet::set(board, i + 16 * j);
-					//board.set(i + 16 * j);
 				}
 			}
 		}
@@ -38,12 +36,10 @@ public:
 
 	inline void place(int x, int y) {
 		BitSet::set(board, x + 16 * y);
-		//board.set(x + 16 * y);
 	}
 
 	inline bool get(int x, int y) {
 		return BitSet::test(board, x + 16 * y);
-		//return board[x + 16 * y];
 	}
 
 	inline bool win() const {
@@ -57,10 +53,10 @@ public:
 		auto bslash = BitSet:: and (board, BitSet:: and (BitSet::rightShift(board, 15), BitSet:: and (BitSet::rightShift(board, 30), BitSet::rightShift(board, 45))));
 		auto slash = BitSet:: and (board, BitSet:: and (BitSet::rightShift(board, 17), BitSet:: and (BitSet::rightShift(board, 34), BitSet::rightShift(board, 51))));
 		auto final = BitSet:: or (hori, BitSet:: or (vert, BitSet:: or (bslash, slash)));
-		return  BitSet::notZero(final);
+		return BitSet::notZero(final);
 	}
 
 };
 
 
-#endif /* CHESSBOARD_H */
+#endif /* GAMEBOARD_HPP */

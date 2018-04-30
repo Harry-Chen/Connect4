@@ -97,7 +97,7 @@
     <ClCompile Include="UCT.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BitSet.h" />
+    <ClInclude Include="BitSet.hpp" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="GameBoard.hpp" />
     <ClInclude Include="fmath.hpp" />

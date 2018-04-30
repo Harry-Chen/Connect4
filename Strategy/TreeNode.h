@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TREENODE_H
+#define TREENODE_H
 
 #include "Constants.h"
 
@@ -39,3 +40,4 @@ public:
 	void freeMemory();
 };
 
+#endif

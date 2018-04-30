@@ -8,8 +8,8 @@ TreeNode** TreeNode::pool = new TreeNode*[MAX_MEMORY_POOL_SIZE]();
 size_t TreeNode::usedMemory = 0;
 
 TreeNode::TreeNode(int x, int y, int player, TreeNode *_father) {
-	children = new TreeNode*[UCT::N];
-	expandableNodes = new int[UCT::N];
+	children = new TreeNode*[MAX_N];
+	expandableNodes = new int[MAX_N];
 	set(x, y, player, _father);
 }
 
