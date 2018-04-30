@@ -138,7 +138,7 @@ const UCT::MoveResult UCT::getOptimalMove(GameBoard &thatBoard, int opponentLast
 			}
 		}
 		if (slashLeftOffset + slashRightOffset + 1 == 5) {
-			auto rightEmpty = (opponentLastX + slashRightOffset < M) && (opponentLastY + slashRightOffset < N) && nowTop[opponentLastY + slashRightOffset] == opponentLastX + slashRightOffset +1 ;
+			auto rightEmpty = (opponentLastX + slashRightOffset < M) && (opponentLastY + slashRightOffset < N) && nowTop[opponentLastY + slashRightOffset] == opponentLastX + slashRightOffset + 1;
 			auto leftEmpty = (opponentLastX - slashLeftOffset >= 0) && (opponentLastY - slashLeftOffset >= 0) && nowTop[opponentLastY - slashLeftOffset] == opponentLastX - slashLeftOffset + 1;
 			if (leftEmpty && rightEmpty) {
 				return DOOM_TO_LOSE;
@@ -160,53 +160,33 @@ double UCT::defaultPolicy(TreeNode *nowNode) {
 	int x = nowNode->_x, y = nowNode->_y, player = nowNode->_player;
 
 	int rest = 0;
-	for (int i = 0; i < N; i++)
+	for (int i = 0; i < N; i++) {
 		rest += nowTop[i];
+	}
 
 	auto profit = calculateProfit(nowOpponentBoard, nowMyBoard, rest, player);
 
 	while (profit == UNTERMINAL_STATE) {
-		if (player == PLAYER_OPPONENT) {
-			auto result = getOptimalMove(nowMyBoard, x, y);
-			switch (result.first) {
-			case UCT::OptimalMoveResult::DOOM_TO_LOSE:
-				return PROFIT_I_WIN;
-			case UCT::OptimalMoveResult::MOVE_DONE:
-				x = result.second.x;
-				y = result.second.y;
-				nowOpponentBoard.place(x, y);
-				--nowTop[y];
-				break;
-			case UCT::OptimalMoveResult::NOT_FOUND:
+		GameBoard *boards[] = { &nowMyBoard, &nowOpponentBoard };
+
+		auto result = getOptimalMove(*boards[1 - player], x, y);
+		switch (result.first) {
+		case UCT::OptimalMoveResult::DOOM_TO_LOSE:
+			return player == PLAYER_OPPONENT ? PROFIT_I_WIN : PROFIT_OPPONENT_WIN;
+		case UCT::OptimalMoveResult::MOVE_DONE:
+			x = result.second.x;
+			y = result.second.y;
+			boards[player]->place(x, y);
+			--nowTop[y];
+			break;
+		case UCT::OptimalMoveResult::NOT_FOUND:
+			y = rand() % N;
+			while (nowTop[y] == 0) {
 				y = rand() % N;
-				while (nowTop[y] == 0) {
-					y = rand() % N;
-				}
-				x = --nowTop[y];
-				nowOpponentBoard.place(x, y);
-				break;
 			}
-		}
-		else {
-			auto result = getOptimalMove(nowOpponentBoard, x, y);
-			switch (result.first) {
-			case UCT::OptimalMoveResult::DOOM_TO_LOSE:
-				return PROFIT_OPPONENT_WIN;
-			case UCT::OptimalMoveResult::MOVE_DONE:
-				x = result.second.x;
-				y = result.second.y;
-				nowMyBoard.place(x, y);
-				--nowTop[y];
-				break;
-			case UCT::OptimalMoveResult::NOT_FOUND:
-				y = rand() % N;
-				while (nowTop[y] == 0) {
-					y = rand() % N;
-				}
-				x = --nowTop[y];
-				nowMyBoard.place(x, y);
-				break;
-			}
+			x = --nowTop[y];
+			boards[player]->place(x, y);
+			break;
 		}
 
 		rest--;
@@ -216,12 +196,7 @@ double UCT::defaultPolicy(TreeNode *nowNode) {
 			rest--;
 		}
 
-		if (player == PLAYER_ME) {
-			player = PLAYER_OPPONENT;
-		}
-		else {
-			player = PLAYER_ME;
-		}
+		player = 1 - player;
 
 		profit = calculateProfit(nowOpponentBoard, nowMyBoard, rest, player);
 	}
