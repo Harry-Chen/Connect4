@@ -25,7 +25,7 @@ public:
 		}
 	}
 
-	void output() {
+	void output() const {
 		for (int i = 0; i < M; i++) {
 			for (int j = 0; j < N; j++) {
 				printf("%d ", get(i, j));
@@ -38,7 +38,7 @@ public:
 		BitSet::set(board, x + 16 * y);
 	}
 
-	inline bool get(int x, int y) {
+	inline bool get(int x, int y) const {
 		return BitSet::test(board, x + 16 * y);
 	}
 

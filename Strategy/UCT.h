@@ -4,6 +4,7 @@
 #include <utility>
 
 #include "Constants.h"
+#include "Point.h"
 
 class GameBoard;
 class Timer;
@@ -31,5 +32,20 @@ public:
 	static GameBoard nowOpponentBoard, nowMyBoard;
 	static int *nowTop;
 	static int M, N, noX, noY;
+
+	enum class OptimalMoveResult {
+		NOT_FOUND,
+		MOVE_DONE,
+		DOOM_TO_LOSE
+	};
+
+private:
+	using MoveResult = std::pair<OptimalMoveResult, Point>;
+
+	const static MoveResult DOOM_TO_LOSE;
+	const static MoveResult NOT_FOUND;
+
+	const MoveResult getOptimalMove(GameBoard &thatBoard, int opponentLastX, int opponentLastY);
+	inline const MoveResult generateResult(int X, int Y);
 };
 #endif /* UCT_h */ 
