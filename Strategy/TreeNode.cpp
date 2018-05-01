@@ -1,7 +1,7 @@
 #include "TreeNode.h"
 #include "GameBoard.hpp"
 #include "UCT.h"
-#include "FastLog.hpp"
+#include "FastMath.hpp"
 
 TreeNode** TreeNode::pool = new TreeNode*[MAX_MEMORY_POOL_SIZE]();
 size_t TreeNode::usedMemory = 0;
@@ -99,9 +99,9 @@ TreeNode* TreeNode::bestChild(bool placeNewChess) {
 			continue;
 		}
 		double realProfit = children[i]->profit * (_player == PLAYER_OPPONENT ? 1 : -1);
-		double ChildVisNum = children[i]->visNum;
+		float ChildVisNum = children[i]->visNum;
 
-		double tmp = realProfit / ChildVisNum + sqrt(2 * fast_log(visNum) / ChildVisNum) * COEFFICIENT;
+		double tmp = realProfit / ChildVisNum + fastSqrt(2 * fastLog(visNum) / ChildVisNum) * COEFFICIENT;
 		if (tmp > maxProfit - eps) {
 			maxProfit = tmp;
 			bestNode = children[i];
