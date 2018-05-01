@@ -13,7 +13,7 @@
 #define MAX_N 12
 
 #define eps 1e-8
-#define MAX_MEMORY_POOL_SIZE 20000000
+#define MAX_MEMORY_POOL_SIZE 60000000
 #define TIME_LIMIT_MICROSECOND 2.8e6
 
 #endif

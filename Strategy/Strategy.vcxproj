@@ -99,6 +99,7 @@
   <ItemGroup>
     <ClInclude Include="BitSet.hpp" />
     <ClInclude Include="Constants.h" />
+    <ClInclude Include="FastLog.hpp" />
     <ClInclude Include="GameBoard.hpp" />
     <ClInclude Include="fmath.hpp" />
     <ClInclude Include="Point.h" />

@@ -53,5 +53,8 @@
     <ClInclude Include="BitSet.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="FastLog.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
