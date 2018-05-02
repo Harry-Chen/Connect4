@@ -44,11 +44,15 @@ extern "C" Point* getPoint(const int M, const int N, const int* top, const int* 
 	/* end pre-filled */
 
 	/* begin user-filled */
+	printf("B place on (%d, %d)\n", lastX, lastY);
+
 	UCT uct(M, N, noX, noY);
 	auto res = uct.UCTSearch(board, top);
 	x = res.first;
 	y = res.second;
-	printf("place: %d %d\n", x, y);
+
+	printf("A place on (%d, %d)\n", x, y);
+	puts("------------");
 	/* end user-filled */
 
 	/* begin pre-filled */

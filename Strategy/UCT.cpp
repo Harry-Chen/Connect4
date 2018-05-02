@@ -266,8 +266,8 @@ std::pair<int, int> UCT::UCTSearch(int const* const* boardStart, const int *topS
 	delete[] nowTop;
 	nowTop = nullptr;
 
-	printf("Searched %d times, taking %lf ns\n", times, timer->getElapsedMicroseconds());
-	return result;
+	printf("Searched %d times, taking %lf s\n", times, timer->getElapsedMicroseconds() / 1e6);
 
+	return result;
 
 }
