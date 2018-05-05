@@ -48,11 +48,11 @@ public:
 		//auto bslash = board & board >> 15 & board >> 30 & board >> 45;
 		//auto slash = board & board >> 17 & board >> 34 & board >> 51;
 		//return hori | vert | bslash | slash;
-		auto vert = BitSet:: and (board, BitSet:: and (BitSet::rightShift(board, 1), BitSet:: and (BitSet::rightShift(board, 2), BitSet::rightShift(board, 3))));
-		auto hori = BitSet:: and (board, BitSet:: and (BitSet::rightShift(board, 16), BitSet:: and (BitSet::rightShift(board, 32), BitSet::rightShift(board, 48))));
-		auto bslash = BitSet:: and (board, BitSet:: and (BitSet::rightShift(board, 15), BitSet:: and (BitSet::rightShift(board, 30), BitSet::rightShift(board, 45))));
-		auto slash = BitSet:: and (board, BitSet:: and (BitSet::rightShift(board, 17), BitSet:: and (BitSet::rightShift(board, 34), BitSet::rightShift(board, 51))));
-		auto final = BitSet:: or (hori, BitSet:: or (vert, BitSet:: or (bslash, slash)));
+		auto vert = BitSet::andWith(board, BitSet::andWith(BitSet::rightShift(board, 1), BitSet::andWith(BitSet::rightShift(board, 2), BitSet::rightShift(board, 3))));
+		auto horWithi = BitSet::andWith(board, BitSet::andWith(BitSet::rightShift(board, 16), BitSet::andWith(BitSet::rightShift(board, 32), BitSet::rightShift(board, 48))));
+		auto bslash = BitSet::andWith(board, BitSet::andWith(BitSet::rightShift(board, 15), BitSet::andWith(BitSet::rightShift(board, 30), BitSet::rightShift(board, 45))));
+		auto slash = BitSet::andWith(board, BitSet::andWith(BitSet::rightShift(board, 17), BitSet::andWith(BitSet::rightShift(board, 34), BitSet::rightShift(board, 51))));
+		auto final = BitSet::orWith(horWithi, BitSet::orWith(vert, BitSet::orWith(bslash, slash)));
 		return BitSet::notZero(final);
 	}
 

@@ -3,6 +3,7 @@
 #include "Point.h"
 #include "Strategy.h"
 #include "UCT.h"
+#include "Constants.h"
 
 using namespace std;
 
@@ -31,6 +32,10 @@ output:
 
 extern "C" Point* getPoint(const int M, const int N, const int* top, const int* _board,
 	const int lastX, const int lastY, const int noX, const int noY) {
+
+	UNUSED(lastX);
+	UNUSED(lastY);
+
 	/* begin pre-filled */
 	int x = -1, y = -1;
 
@@ -44,15 +49,19 @@ extern "C" Point* getPoint(const int M, const int N, const int* top, const int* 
 	/* end pre-filled */
 
 	/* begin user-filled */
+#ifdef _DEBUG
 	printf("B place on (%d, %d)\n", lastX, lastY);
+#endif
 
 	UCT uct(M, N, noX, noY);
 	auto res = uct.UCTSearch(board, top);
 	x = res.first;
 	y = res.second;
 
+#ifdef _DEBUG
 	printf("A place on (%d, %d)\n", x, y);
 	puts("------------");
+#endif
 	/* end user-filled */
 
 	/* begin pre-filled */
@@ -69,6 +78,7 @@ extern "C" void clearPoint(Point* p) {
 
 
 void clearArray(int M, int N, int** board) {
+	UNUSED(N)
 	for (int i = 0; i < M; i++) {
 		delete[] board[i];
 	}

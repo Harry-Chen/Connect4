@@ -16,4 +16,6 @@
 #define MAX_MEMORY_POOL_SIZE 60000000
 #define TIME_LIMIT_MICROSECOND 2.8e6
 
+#define UNUSED(x) (void)x;
+
 #endif

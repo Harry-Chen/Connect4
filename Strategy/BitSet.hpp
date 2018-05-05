@@ -31,11 +31,11 @@ struct BitSet {
 			data.a[2] >> x };
 	}
 
-	static bits and (const bits& a, const bits& b) {
+	static bits andWith(const bits& a, const bits& b) {
 		return bits{ a.a[0] & b.a[0], a.a[1] & b.a[1], a.a[2] & b.a[2] };
 	}
 
-	static bits or (const bits& a, const bits& b) {
+	static bits orWith(const bits& a, const bits& b) {
 		return bits{ a.a[0] | b.a[0], a.a[1] | b.a[1], a.a[2] | b.a[2] };
 	}
 
